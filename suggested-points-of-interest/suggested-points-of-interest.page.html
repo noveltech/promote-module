@@ -1,0 +1,336 @@
+<ion-header class="ion-no-border">
+  <ion-toolbar mode="ios">
+    <ion-buttons slot="start">
+      <ion-back-button
+        mode="md"
+        defaultHref="tabs/personal-guide"
+      ></ion-back-button>
+    </ion-buttons>
+
+    <ion-title role="title" aria-label="Recommended points of interest">
+      {{'RECOMMENDED_PLACES' | translate}}
+    </ion-title>
+
+    <ion-buttons mode="md" slot="primary">
+      <ion-button (click)="showTutorialModal(false)">
+        <ion-icon slot="icon-only" name="help-circle-outline"></ion-icon>
+      </ion-button>
+    </ion-buttons>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content #ionContent>
+  <div class="container">
+    <app-stepper [numberOfSteps]="3" [currentStep]="currentStep"></app-stepper>
+
+    <div class="spinner-container" *ngIf="isLoading">
+      <ion-spinner name="crescent" color="primary"></ion-spinner>
+    </div>
+
+    <ng-container [ngSwitch]="currentStep" *ngIf="!isLoading">
+      <section id="step1" *ngSwitchCase="1">
+        <h2>{{'RECOMMENDED_PLACES_STEP1_HEADER' | translate}}</h2>
+
+        <ion-img
+          src="/assets/images/suggested-points-of-interest/step-1.svg"
+        ></ion-img>
+
+        <div class="actions">
+          <p class="title">{{'RECOMMENDED_PLACES_MY_LOCATION' | translate }}</p>
+
+          <p>
+            {{'RECOMMENDED_PLACES_SEARCH_FOR_YOUR_LOCATION_AUTOMATICALLY' |
+            translate }}
+          </p>
+
+          <ion-button
+            color="primary"
+            mode="ios"
+            shape="round"
+            (click)="onUseDeviceLocation()"
+            >{{'RECOMMENDED_PLACES_SEARCH' | translate}}</ion-button
+          >
+
+          <p>{{'RECOMMENDED_PLACES_PICK_LOCATION_ON_MAP' | translate}}</p>
+
+          <ion-fab-button mode="md" (click)="onChooseLocationFromMap()">
+            <ion-icon name="map-outline"></ion-icon>
+          </ion-fab-button>
+        </div>
+      </section>
+
+      <section id="step2" *ngSwitchCase="2">
+        <ng-container *ngIf="currentSubStep === 1">
+          <h2>{{'RECOMMENDED_PLACES_STEP2_HEADER1' | translate}}</h2>
+
+          <!-- <form
+            [formGroup]="likedPlacesForm"
+            *ngIf="popularPlaces && popularPlaces.length > 0; else noPois"
+          > -->
+          <ion-list>
+            <ion-item
+              mode="md"
+              class="question-item popular-place"
+              *ngFor="let place of popularPlaces"
+              [class.checked]="false"
+            >
+              <ion-thumbnail slot="start">
+                <ion-img
+                  role="image"
+                  aria-label="selected point main image"
+                  [src]="place.image"
+                ></ion-img>
+              </ion-thumbnail>
+
+              <ion-label class="ion-no-margin ion-text-wrap">
+                {{place.name }}
+                <p>{{ getCategoriesOfPoi(place) }}</p>
+
+                <ion-buttons mode="md">
+                  <ion-button
+                    class="link-btn foursquare"
+                    size="small"
+                    shape="round"
+                    *ngIf="!!place.id"
+                    (click)="openLink('https://foursquare.com/v/'+ place.id)"
+                  >
+                    <ion-icon
+                      slot="icon-only"
+                      name="logo-foursquare"
+                    ></ion-icon>
+                  </ion-button>
+
+                  <ion-button
+                    class="link-btn twitter"
+                    size="small"
+                    shape="round"
+                    *ngIf="!!place.twitter"
+                    (click)="openLink('https://twitter.com/'+ place.twitter)"
+                  >
+                    <ion-icon slot="icon-only" name="logo-twitter"></ion-icon>
+                  </ion-button>
+
+                  <ion-button
+                    class="link-btn facebook"
+                    size="small"
+                    shape="round"
+                    *ngIf="!!place.facebook_username"
+                    (click)="openLink('https://www.facebook.com/'+ place.facebook_username)"
+                  >
+                    <ion-icon slot="icon-only" name="logo-facebook"></ion-icon>
+                  </ion-button>
+
+                  <ion-button
+                    class="link-btn instagram"
+                    size="small"
+                    shape="round"
+                    *ngIf="!!place.instagram"
+                    (click)="openLink('https://www.instagram.com/'+ place.instagram)"
+                  >
+                    <ion-icon slot="icon-only" name="logo-instagram"></ion-icon>
+                  </ion-button>
+
+                  <ion-button
+                    class="link-btn"
+                    color="primary"
+                    size="small"
+                    shape="round"
+                    *ngIf="!!place.url"
+                    (click)="openLink(place.url)"
+                  >
+                    <ion-icon slot="icon-only" name="globe-outline"></ion-icon>
+                  </ion-button>
+                </ion-buttons>
+
+                <ion-buttons mode="md" style="justify-content: center">
+                  <ion-button
+                    class="link-btn rate-btn"
+                    [class.selected]="likedPlaces[place.id] === 1"
+                    (click)="onRatePlace(place.id, 1)"
+                    size="small"
+                    shape="round"
+                  >
+                    <i slot="icon-only" class="fas fa-frown-open"></i>
+                  </ion-button>
+
+                  <ion-button
+                    class="link-btn rate-btn"
+                    [class.selected]="likedPlaces[place.id] === 2"
+                    (click)="onRatePlace(place.id, 2)"
+                    size="small"
+                    shape="round"
+                  >
+                    <i slot="icon-only" class="fas fa-frown"></i>
+                  </ion-button>
+
+                  <ion-button
+                    class="link-btn rate-btn"
+                    [class.selected]="likedPlaces[place.id] === 3"
+                    (click)="onRatePlace(place.id, 3)"
+                    size="small"
+                    shape="round"
+                  >
+                    <i slot="icon-only" class="fas fa-meh"></i>
+                  </ion-button>
+
+                  <ion-button
+                    class="link-btn rate-btn"
+                    [class.selected]="likedPlaces[place.id] === 4"
+                    (click)="onRatePlace(place.id, 4)"
+                    size="small"
+                    shape="round"
+                  >
+                    <i slot="icon-only" class="fas fa-smile"></i>
+                  </ion-button>
+
+                  <ion-button
+                    class="link-btn rate-btn"
+                    [class.selected]="likedPlaces[place.id] === 5"
+                    (click)="onRatePlace(place.id, 5)"
+                    size="small"
+                    shape="round"
+                  >
+                    <i slot="icon-only" class="fas fa-grin"></i>
+                  </ion-button>
+                </ion-buttons>
+                <!-- <div class="point-of-interest-rating">
+                    <bar-rating
+                      role="rating"
+                      aria-label="place's rating"
+                      [rate]="4"
+                      [max]="5"
+                      [theme]="'square'"
+                      [showText]="false"
+                      [readOnly]="true"
+                    ></bar-rating>
+                  </div> -->
+              </ion-label>
+
+              <!-- <ion-checkbox
+                  #c
+                  slot="end"
+                  [formControlName]="i"
+                ></ion-checkbox> -->
+            </ion-item>
+          </ion-list>
+          <!-- </form> -->
+
+          <ng-template #noPois>
+            <p>{{'NO_POIS_OF_INTEREST'|translate}}</p>
+          </ng-template>
+
+          <!-- <div class="grid-layout">
+            <app-place-toggle
+              *ngFor="let poi of popularPlaces"
+              [poi]="poi"
+              [isSelected]="isPlaceSelected(poi)"
+              (toggle)="onTogglePlace($event, poi)"
+            ></app-place-toggle>
+          </div> -->
+        </ng-container>
+
+        <ng-container *ngIf="currentSubStep === 2">
+          <h2>{{'RECOMMENDED_PLACES_STEP2_HEADER2' | translate}}</h2>
+
+          <form [formGroup]="questionsForm">
+            <ion-list>
+              <ion-item
+                formArrayName="questions"
+                mode="md"
+                [lines]="!!c.checked ? 'none' : 'inset'"
+                class="question-item"
+                *ngFor="let q of questionsFormArray.controls; let i = index"
+                [class.checked]="c.checked ?? false"
+              >
+                <ion-label class="ion-no-margin ion-text-wrap"
+                  >{{ questions[i].question | translate }}</ion-label
+                >
+
+                <ion-checkbox
+                  #c
+                  slot="end"
+                  [formControlName]="i"
+                ></ion-checkbox>
+              </ion-item>
+            </ion-list>
+          </form>
+        </ng-container>
+
+        <!-- <div class="button-container">
+          <ion-item button mode="md" color="primary" (click)="goToNextStep()">
+            <ion-label class="ion-text-center">
+              {{ currentSubStep === 1 ? 'Επόμενο βήμα' : 'Δες τις προτάσεις μου'
+              }}
+            </ion-label>
+
+            <div slot="end" class="icon-container">
+              <ion-icon name="arrow-forward-sharp"></ion-icon>
+            </div>
+          </ion-item>
+        </div> -->
+      </section>
+
+      <section id="step3" *ngSwitchCase="3">
+        <ion-segment mode="ios" [(ngModel)]="segment">
+          <ion-segment-button value="culturalPlaces">
+            <ion-label>
+              {{'RECOMMENDED_PLACES_STEP3_CULTURAL_PLACES' | translate}}
+            </ion-label>
+          </ion-segment-button>
+          <ion-segment-button value="foursquare">
+            <ion-label>Foursquare</ion-label>
+          </ion-segment-button>
+        </ion-segment>
+
+        <div id="cultural-places" *ngIf="segment === 'culturalPlaces'">
+          <ng-container
+            *ngIf="culturalPlaces && culturalPlaces.length > 0; else noPois"
+          >
+            <app-point-of-interest-card
+              role="button"
+              aria-label="select point of interest"
+              *ngFor="let poi of culturalPlaces"
+              [poi]="poi"
+              (click)="onViewPoi(poi)"
+            ></app-point-of-interest-card>
+          </ng-container>
+
+          <ng-template #noPois>
+            <p>{{'NO_POIS_OF_INTEREST'|translate}}</p>
+          </ng-template>
+        </div>
+
+        <div id="foursquare-places" *ngIf="segment === 'foursquare'">
+          <ng-container
+            *ngIf="suggestedPlaces && suggestedPlaces.length > 0; else noPois"
+          >
+            <app-foursquare-card
+              role="button"
+              [poi]="poi"
+              aria-label="select point of interest"
+              *ngFor="let poi of suggestedPlaces"
+              (viewPointOfInterestDetails)="onViewFoursquarePoi(poi.id)"
+            ></app-foursquare-card>
+          </ng-container>
+
+          <ng-template #noPois>
+            <p>{{'NO_POIS_OF_INTEREST'|translate}}</p>
+          </ng-template>
+        </div>
+      </section>
+    </ng-container>
+  </div>
+</ion-content>
+
+<ion-footer class="ion-no-border" *ngIf="currentStep === 2">
+  <ion-item button mode="md" color="primary" (click)="goToNextStep()">
+    <ion-label class="ion-text-center">
+      {{ (currentSubStep === 1 ? 'RECOMMENDED_PLACES_STEP2_NEXT' :
+      'RECOMMENDED_PLACES_STEP2_SHOW_RESULTS') | translate }}
+    </ion-label>
+
+    <div slot="end" class="icon-container">
+      <ion-icon name="arrow-forward-sharp"></ion-icon>
+    </div>
+  </ion-item>
+</ion-footer>

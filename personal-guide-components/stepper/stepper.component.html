@@ -1,0 +1,15 @@
+<div class="stepper">
+  <ng-container *ngFor="let u of [].constructor(numberOfSteps); let i = index">
+    <div class="container" [class.completed]="currentStep > i + 1">
+      <div class="step" [class.active]="currentStep === i + 1">
+        <span>{{ i + 1 }}</span>
+      </div>
+    </div>
+
+    <div
+      class="line"
+      [class.completed]="currentStep > i + 1"
+      *ngIf="i + 1 < numberOfSteps"
+    ></div>
+  </ng-container>
+</div>

@@ -1,0 +1,16 @@
+<div class="container" (click)="onToggle()">
+  <div class="header">
+    <!-- <ion-img [src]="poi.main_image"></ion-img> -->
+    <ion-img src="assets/images/empty-trip.jpg"></ion-img>
+
+    <div class="icon-container" [class.selected]="isSelected">
+      <ion-icon
+        slot="icon-only"
+        role="icon"
+        aria-label="Checkmark icon"
+        name="checkmark-outline"
+      ></ion-icon>
+    </div>
+  </div>
+  <p class="ion-no-border">{{ poi.name }}</p>
+</div>

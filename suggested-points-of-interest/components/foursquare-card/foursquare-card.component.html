@@ -1,0 +1,35 @@
+<div class="point-item-container" *ngIf="!!poi">
+  <ion-item
+    class="selected-point-of-interest-item"
+    role="button"
+    aria-label="view point on map details"
+    [button]="false"
+    lines="none"
+    mode="md"
+    (click)="onViewPointDetails()"
+  >
+    <ion-thumbnail slot="start">
+      <ion-img
+        role="image"
+        aria-label="selected point main image"
+        [src]="poi.image"
+      ></ion-img>
+    </ion-thumbnail>
+
+    <ion-label>
+      <p
+        role="text"
+        class="selected-point-categories"
+        aria-label="selected point categories"
+      >
+        {{ categoryNames }}
+      </p>
+
+      <h2 role="header" aria-label="selected point name" class="ion-text-wrap">
+        {{ poi.name }}
+      </h2>
+    </ion-label>
+
+    <ion-icon slot="end" name="logo-foursquare"></ion-icon>
+  </ion-item>
+</div>

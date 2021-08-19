@@ -1,0 +1,68 @@
+<ion-header class="ion-no-border">
+  <ion-toolbar mode="ios">
+    <ion-title>{{'PERSONAL_GUIDE' | translate}}</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content>
+  <div class="container">
+    <div
+      class="button ion-activatable ripple-parent"
+      (click)="navigateTo('similar-points-of-interest')"
+    >
+      <div class="button-content">
+        <ion-img src="/assets/images/windmills.svg"></ion-img>
+        <h5>{{'SIMILAR_CULTURAL_PLACES' | translate}}</h5>
+      </div>
+
+      <ion-ripple-effect *ngIf="isAndroid"></ion-ripple-effect>
+    </div>
+
+    <div
+      class="button ion-activatable ripple-parent"
+      (click)="openLink('https://promote.3pi-telematics.com/#!/route')"
+    >
+      <div class="button-content">
+        <ion-img src="/assets/images/road.svg"></ion-img>
+        <h5>{{'OPTIMAL_ROUTE' | translate}}</h5>
+      </div>
+      <ion-ripple-effect *ngIf="isAndroid"></ion-ripple-effect>
+    </div>
+
+    <div
+      class="button align-bottom ion-activatable ripple-parent"
+      (click)="openLink('https://promote.3pi-telematics.com/#!/hotels')"
+    >
+      <div class="button-content">
+        <ion-img src="/assets/images/house.svg"></ion-img>
+        <h5>{{'HOTELS' | translate}}</h5>
+      </div>
+
+      <ion-ripple-effect *ngIf="isAndroid"></ion-ripple-effect>
+    </div>
+    <div
+      class="button align-bottom ion-activatable ripple-parent"
+      (click)="openLink('https://promote.3pi-telematics.com/#!/tickets')"
+    >
+      <div class="button-content">
+        <ion-img src="/assets/images/captain.svg"></ion-img>
+        <h5>{{'AIRPLANE_TICKETS' | translate}}</h5>
+      </div>
+
+      <ion-ripple-effect *ngIf="isAndroid"></ion-ripple-effect>
+    </div>
+
+    <div
+      id="suggested-points-of-interest"
+      class="button ion-activatable ripple-parent"
+      (click)="navigateTo('suggested-points-of-interest')"
+    >
+      <div class="button-content">
+        <ion-img src="/assets/images/prospose.svg"></ion-img>
+        <h5>{{'RECOMMENDED_PLACES' | translate}}</h5>
+      </div>
+
+      <ion-ripple-effect *ngIf="isAndroid"></ion-ripple-effect>
+    </div>
+  </div>
+</ion-content>

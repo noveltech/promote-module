@@ -1,0 +1,48 @@
+<ion-header>
+  <ion-toolbar mode="md" color="primary">
+    <ion-buttons slot="start">
+      <ion-button mode="md" (click)="onCancel()"
+        ><ion-icon slot="icon-only" name="close-outline"></ion-icon
+      ></ion-button>
+    </ion-buttons>
+
+    <ion-title role="title" aria-label="Similar points of interests">
+      {{ 'LOCATION_PICKER_CHOOSE_A_LOCATION' | translate }}
+
+      <p class="subtitle ion-text-wrap">
+        {{ 'LOCATION_PICKER_INSTRUCTIONS' | translate }}
+      </p>
+    </ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<div
+  role="map"
+  aria-label="main map"
+  id="map"
+  leaflet
+  [leafletOptions]="mapOptions"
+  (leafletMapReady)="onMapReady($event)"
+  (leafletClick)="onMapClicked($event)"
+></div>
+
+<div class="bottom-container">
+  <div id="button-container">
+    <ion-item
+      id="confirm-button"
+      button
+      mode="md"
+      color="primary"
+      (click)="onConfirm()"
+      *ngIf="!!selectedCoordinates"
+    >
+      <ion-label class="ion-text-center">{{
+        'LOCATION_PICKER_CONFIRM' | translate
+      }}</ion-label>
+
+      <div slot="end" class="icon-container">
+        <ion-icon name="checkmark-outline"></ion-icon>
+      </div>
+    </ion-item>
+  </div>
+</div>

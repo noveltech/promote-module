@@ -1,0 +1,107 @@
+// .stepper-container {
+//   padding: 2rem;
+//   padding-bottom: 0;
+// }
+
+.container {
+  padding: 2rem;
+}
+
+section {
+  h2 {
+    font-size: 2.3rem;
+    color: rgb(45, 54, 59);
+    text-align: center;
+    padding: 0 1rem;
+  }
+
+  p {
+    font-size: 1.7rem;
+    // font-size: 2.2rem;
+    color: rgb(152, 162, 173);
+    margin-top: 0;
+    text-align: center;
+  }
+}
+
+.instructions {
+  padding-top: 3rem;
+
+  app-instructions {
+    &.second-step {
+      --content-width: 100%;
+    }
+  }
+
+  .progress-container {
+    width: 100%;
+    padding: 0 2.5rem;
+
+    .header {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      width: 100%;
+      margin-bottom: 1.5rem;
+
+      p {
+        margin: 0;
+      }
+
+      .title {
+        color: rgb(45, 54, 59);
+      }
+
+      .progress {
+        font-size: 1.3rem;
+      }
+    }
+
+    ion-progress-bar {
+      height: 0.6rem;
+      border-radius: 1em;
+    }
+  }
+
+  .camera {
+    padding-top: 3rem;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+
+    p {
+      margin: 0;
+    }
+
+    ion-fab-button {
+      --background: var(--ion-color-primary-contrast);
+      --color: var(--ion-color-primary);
+      --box-shadow: 0px 10px 15px 0px rgba(62, 115, 221, 0.1);
+      margin-top: 3rem;
+
+      ion-icon {
+        stroke-width: 0.1;
+      }
+    }
+  }
+}
+
+ion-footer {
+  margin: 0;
+  padding: 2rem;
+
+  ion-item {
+    --border-radius: 1rem;
+
+    .icon-container {
+      margin: 0 !important;
+      border-left: 2px solid rgba(255, 255, 255, 0.1);
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      height: 100%;
+      padding-left: 1rem;
+    }
+  }
+}

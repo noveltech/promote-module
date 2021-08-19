@@ -1,0 +1,34 @@
+<ion-content>
+  <div class="container">
+    <div class="stepper-container">
+      <app-stepper
+        [numberOfSteps]="totalSteps"
+        [currentStep]="currentStep"
+      ></app-stepper>
+    </div>
+
+    <div class="instructions-container">
+      <div class="instructions">
+        <h2 role="header" aria-label="options">
+          {{ currentInstruction.header }}
+        </h2>
+        <p role="text" aria-label="options">
+          {{ currentInstruction.paragraph }}
+        </p>
+        <img [src]="currentInstruction.image" />
+      </div>
+    </div>
+  </div>
+</ion-content>
+
+<ion-footer class="ion-no-border">
+  <ion-item button mode="md" color="primary" (click)="onNext()">
+    <ion-label class="ion-text-center">{{
+      currentStep < totalSteps ? buttonTitleNext : buttonTitleStart
+    }}</ion-label>
+
+    <div slot="end" class="icon-container" *ngIf="currentStep < totalSteps">
+      <ion-icon name="arrow-forward-sharp"></ion-icon>
+    </div>
+  </ion-item>
+</ion-footer>

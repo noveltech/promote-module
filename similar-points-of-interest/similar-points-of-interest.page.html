@@ -1,0 +1,80 @@
+<ion-header class="ion-no-border">
+  <ion-toolbar mode="ios">
+    <ion-buttons slot="start">
+      <ion-back-button
+        mode="md"
+        defaultHref="tabs/personal-guide"
+      ></ion-back-button>
+    </ion-buttons>
+
+    <ion-title role="title" aria-label="Similar points of interests">
+      Παρόμοια Αξιοθέατα
+    </ion-title>
+
+    <ion-buttons mode="md" slot="primary">
+      <ion-button (click)="showTutorialModal(false)">
+        <ion-icon slot="icon-only" name="help-circle-outline"></ion-icon>
+      </ion-button>
+    </ion-buttons>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content>
+  <div class="container">
+    <div class="stepper-container">
+      <app-stepper
+        [numberOfSteps]="3"
+        [currentStep]="currentStep"
+      ></app-stepper>
+    </div>
+
+    <section class="instructions">
+      <app-instructions
+        header="Ανέβασε μια εικόνα"
+        paragraph="Συμβατά αρχεία όπως jpeg, jpg, png"
+        buttonText="Επίλεξε εικόνα"
+      >
+        <ion-img
+          src="/assets/images/similar-points-of-interest/image.svg"
+        ></ion-img>
+      </app-instructions>
+
+      <!-- <app-instructions
+        header="Ανέβασε μια εικόνα"
+        paragraph="Συμβατά αρχεία όπως jpeg, jpg, png"
+        buttonText="Επίλεξε εικόνα"
+        class="second-step"
+      >
+        <div class="progress-container">
+          <div class="header">
+            <p class="title">Μεταφόρτωση</p>
+
+            <p class="progress">23%</p>
+          </div>
+
+          <ion-progress-bar mode="md" value="0.23"></ion-progress-bar>
+        </div>
+      </app-instructions> -->
+
+      <div class="camera">
+        <p>ή χρησιμοποίησε τη κάμερά σου</p>
+
+        <ion-fab-button mode="md">
+          <ion-icon
+            src="/assets/images/similar-points-of-interest/camera-icon.svg"
+          ></ion-icon>
+        </ion-fab-button>
+      </div>
+    </section>
+  </div>
+</ion-content>
+
+<!-- <ion-footer class="ion-no-border">
+  <ion-item button mode="md" color="primary">
+    <ion-label class="ion-text-center">Επόμενο βήμα</ion-label>
+
+    <div slot="end" class="icon-container">
+      <ion-icon name="arrow-forward-sharp"></ion-icon>
+    </div>
+  </ion-item>
+</ion-footer> -->

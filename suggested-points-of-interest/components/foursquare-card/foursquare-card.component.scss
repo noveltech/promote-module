@@ -1,0 +1,45 @@
+.point-item-container {
+  border: 1px solid rgb(242, 243, 244);
+  border-radius: 1.3rem;
+  margin-bottom: 1rem;
+
+  .selected-point-of-interest-item {
+    --border-radius: 1.3rem;
+    // border: 1px solid rgb(242, 243, 244);
+    // --padding-top: 0.5rem;
+    // --padding-bottom: 0.5rem;
+    --padding-start: 1rem;
+
+    ion-thumbnail {
+      width: 8rem;
+      height: 8rem;
+      --border-radius: 1.3rem;
+    }
+
+    ion-label {
+      margin-top: 0;
+
+      p {
+        font-size: 1.3rem;
+      }
+
+      h2 {
+        font-size: 1.7rem;
+      }
+    }
+
+    .selected-point-categories {
+      margin: 0;
+      margin-bottom: 0.6rem;
+      color: var(--ion-color-primary);
+    }
+
+    ion-icon {
+      color: rgb(168, 178, 189);
+    }
+  }
+}
+
+ion-thumbnail {
+  --border-radius: 0.3em;
+}
